@@ -8,20 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		D80A99811C06078D005FF6E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80A99801C06078D005FF6E3 /* AppDelegate.swift */; };
-		D80A99831C06078D005FF6E3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80A99821C06078D005FF6E3 /* ViewController.swift */; };
 		D80A99861C06078D005FF6E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D80A99841C06078D005FF6E3 /* Main.storyboard */; };
 		D80A99881C06078D005FF6E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D80A99871C06078D005FF6E3 /* Assets.xcassets */; };
 		D80A998B1C06078D005FF6E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D80A99891C06078D005FF6E3 /* LaunchScreen.storyboard */; };
+		D8E39EDF1C061DCD004550C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E39EDE1C061DCD004550C8 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D80A997D1C06078D005FF6E3 /* InstaCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D80A99801C06078D005FF6E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D80A99821C06078D005FF6E3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D80A99851C06078D005FF6E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D80A99871C06078D005FF6E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D80A998A1C06078D005FF6E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D80A998C1C06078D005FF6E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8E39EDE1C061DCD004550C8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +55,8 @@
 			isa = PBXGroup;
 			children = (
 				D80A99801C06078D005FF6E3 /* AppDelegate.swift */,
-				D80A99821C06078D005FF6E3 /* ViewController.swift */,
 				D80A99841C06078D005FF6E3 /* Main.storyboard */,
+				D8E39EDE1C061DCD004550C8 /* ViewController.swift */,
 				D80A99871C06078D005FF6E3 /* Assets.xcassets */,
 				D80A99891C06078D005FF6E3 /* LaunchScreen.storyboard */,
 				D80A998C1C06078D005FF6E3 /* Info.plist */,
@@ -96,6 +96,7 @@
 				TargetAttributes = {
 					D80A997C1C06078D005FF6E3 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = Q7QNRPEVVX;
 					};
 				};
 			};
@@ -135,7 +136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D80A99831C06078D005FF6E3 /* ViewController.swift in Sources */,
+				D8E39EDF1C061DCD004550C8 /* ViewController.swift in Sources */,
 				D80A99811C06078D005FF6E3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,10 +248,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = InstaCat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Patrick-Mintam.InstaCat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -258,10 +262,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = InstaCat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Patrick-Mintam.InstaCat";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -284,6 +291,7 @@
 				D80A99911C06078D005FF6E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
