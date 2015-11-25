@@ -17,20 +17,19 @@ class ViewController: UIViewController,NSURLSessionDelegate,NSURLSessionDataDele
     @IBOutlet var labelURL      : UILabel!
     
     /// The download data buffer
-    var buffer:NSMutableData = NSMutableData()
-    /// The downloaf session
-    var session:NSURLSession?
+    var buffer                  :NSMutableData = NSMutableData()
+    /// The download session
+    var session                 :NSURLSession?
     /// The task in the session
-    var dataTask:NSURLSessionDataTask?
+    var dataTask                :NSURLSessionDataTask?
     /// How long it's gonna take
-    var expectedContentLength = 0
+    var expectedContentLength   = 0
     
     /*!
     Initialise the view
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         saveButton.enabled = false
         progress.progress = 0
         progress.hidden = true
@@ -126,7 +125,7 @@ class ViewController: UIViewController,NSURLSessionDelegate,NSURLSessionDataDele
         /*!
         Display the url of the image
         */
-        labelURL.text = "\(response.URL)"
+        labelURL.text = "\(response.URL!)"
        
     }
     
