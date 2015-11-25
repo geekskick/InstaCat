@@ -16,3 +16,5 @@ It allows the user to save the cat pic directly to their camera roll.
 
 It uses "http://thecatapi.com"'s free api to access one of 1000 cat images. 
 
+![On load](/docs/Screen Shots/Initial Screen.png?raw=true "First Screen")
+![New Cat](/docs/Screen Shots/Cat Pic.png?raw=true "Cat Downloaded")
