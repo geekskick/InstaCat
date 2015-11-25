@@ -8,19 +8,20 @@
 
 import UIKit
 
-class ViewController: UIViewController,NSURLSessionDelegate,NSURLSessionDataDelegate {
+class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDelegate, UITextViewDelegate {
 
     @IBOutlet var pictureOfCat  : UIImageView!
     @IBOutlet var getButton     : UIButton!
     @IBOutlet var saveButton    : UIButton!
-    @IBOutlet weak var progress : UIProgressView!
-    @IBOutlet var labelURL      : UILabel!
+    @IBOutlet var progress      : UIProgressView!
+    @IBOutlet var tView         : UITextView!
+    
     
     /// The download data buffer
     var buffer                  :NSMutableData = NSMutableData()
-    /// The download session
+    /// The download session might not happen so its optional
     var session                 :NSURLSession?
-    /// The task in the session
+    /// The task in the session might not happen so its optional
     var dataTask                :NSURLSessionDataTask?
     /// How long it's gonna take
     var expectedContentLength   = 0
@@ -30,12 +31,33 @@ class ViewController: UIViewController,NSURLSessionDelegate,NSURLSessionDataDele
     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         saveButton.enabled = false
         progress.progress = 0
         progress.hidden = true
         pictureOfCat.hidden = true
-    }
+        
+        /// Make the links the default colour or text AKA black
+        tView.tintColor = UIColor.blackColor()
 
+    }
+    
+    /*!
+    This is called when the textview urls are selected - matches a function name in the TextViewDelegate protocol
+    
+    - parameter textView:				the UITextView object it's within
+    - parameter URL:						the Url pressed
+    - parameter characterRange:	the character numbers withing the textview
+    
+    - returns: true if it's allowed to open safari
+    */
+    internal func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool{
+        return true
+    }
+    
+    /*!
+    Here when the xcode started
+    */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -65,7 +87,6 @@ class ViewController: UIViewController,NSURLSessionDelegate,NSURLSessionDataDele
         progress.hidden = false
         getButton.enabled = false
         saveButton.enabled = false
-        labelURL.hidden = true
         
         /*!
         Reset progress bar
@@ -122,11 +143,7 @@ class ViewController: UIViewController,NSURLSessionDelegate,NSURLSessionDataDele
         */
         completionHandler(NSURLSessionResponseDisposition.Allow)
         
-        /*!
-        Display the url of the image
-        */
-        labelURL.text = "\(response.URL!)"
-       
+        
     }
     
     /*!
@@ -171,7 +188,9 @@ class ViewController: UIViewController,NSURLSessionDelegate,NSURLSessionDataDele
             pictureOfCat.image = UIImage(data: buffer)
             pictureOfCat.hidden = false
             saveButton.enabled = true
-            labelURL.hidden = false
+            
+            tView.text = task.response?.URL?.absoluteString
+        
             
         }
         

@@ -52,43 +52,47 @@
                                 <rect key="frame" x="20" y="281" width="563" height="2"/>
                                 <animations/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KmG-Nd-e0P">
-                                <rect key="frame" x="20" y="481" width="560" height="21"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" scrollEnabled="NO" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lVQ-dN-7fs">
+                                <rect key="frame" x="18" y="476" width="563" height="47"/>
                                 <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="dkx-93-rEe"/>
+                                    <constraint firstAttribute="height" constant="47" id="88Q-9s-Hz3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="pcx-9Y-K1n"/>
+                                </connections>
+                            </textView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="5nO-uw-rEz" firstAttribute="baseline" secondItem="MO6-lA-8SO" secondAttribute="baseline" id="5Mk-I8-UUQ"/>
-                            <constraint firstItem="KmG-Nd-e0P" firstAttribute="centerX" secondItem="g5w-TV-da8" secondAttribute="centerX" id="7yR-D8-xhV"/>
                             <constraint firstItem="g5w-TV-da8" firstAttribute="centerX" secondItem="MO6-lA-8SO" secondAttribute="centerX" constant="107" id="8bb-y0-3Po"/>
                             <constraint firstItem="g5w-TV-da8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="DNC-Sb-VzI"/>
                             <constraint firstItem="MO6-lA-8SO" firstAttribute="top" secondItem="g5w-TV-da8" secondAttribute="bottom" constant="64" id="I4N-sa-THu"/>
                             <constraint firstItem="ief-A6-Hqi" firstAttribute="trailing" secondItem="5nO-uw-rEz" secondAttribute="trailing" id="Qgf-Io-Qfv"/>
-                            <constraint firstItem="KmG-Nd-e0P" firstAttribute="top" secondItem="g5w-TV-da8" secondAttribute="bottom" constant="8" symbolic="YES" id="UKW-hH-w5U"/>
-                            <constraint firstItem="KmG-Nd-e0P" firstAttribute="leading" secondItem="ief-A6-Hqi" secondAttribute="leading" id="Ubd-3N-AHW"/>
                             <constraint firstAttribute="bottom" secondItem="MO6-lA-8SO" secondAttribute="bottom" constant="20" id="YBx-LT-U0M"/>
                             <constraint firstItem="ief-A6-Hqi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="aP5-vR-Tji"/>
+                            <constraint firstItem="lVQ-dN-7fs" firstAttribute="centerX" secondItem="g5w-TV-da8" secondAttribute="centerX" id="av4-jc-0zm"/>
                             <constraint firstItem="g5w-TV-da8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dpQ-jp-Kjb"/>
                             <constraint firstItem="g5w-TV-da8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-3" id="egz-xI-qBH"/>
                             <constraint firstItem="ief-A6-Hqi" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="217" id="fzy-yu-kjB"/>
                             <constraint firstItem="5nO-uw-rEz" firstAttribute="trailing" secondItem="g5w-TV-da8" secondAttribute="trailing" id="ieE-De-2Sn"/>
+                            <constraint firstItem="lVQ-dN-7fs" firstAttribute="top" secondItem="g5w-TV-da8" secondAttribute="bottom" constant="3" id="r8d-5L-Ka1"/>
+                            <constraint firstItem="lVQ-dN-7fs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-2" id="t2C-fS-E3W"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="InstaCat" id="sv0-wD-MOV"/>
                     <connections>
                         <outlet property="getButton" destination="MO6-lA-8SO" id="yrN-hh-WBr"/>
-                        <outlet property="labelURL" destination="KmG-Nd-e0P" id="aO5-oA-SFh"/>
                         <outlet property="pictureOfCat" destination="g5w-TV-da8" id="xLw-EB-Dol"/>
                         <outlet property="progress" destination="ief-A6-Hqi" id="yRJ-xi-R8S"/>
                         <outlet property="saveButton" destination="5nO-uw-rEz" id="LoZ-Bl-IHc"/>
+                        <outlet property="tView" destination="lVQ-dN-7fs" id="yV1-qg-H4A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
