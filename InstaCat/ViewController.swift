@@ -87,6 +87,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
         progress.hidden = false
         getButton.enabled = false
         saveButton.enabled = false
+        tView.hidden = true
         
         /*!
         Reset progress bar
@@ -181,6 +182,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
             saveButton.enabled = true
             
             tView.text = task.response?.URL?.absoluteString
+            tView.hidden = false
         
             
         }
