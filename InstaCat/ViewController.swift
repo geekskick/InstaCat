@@ -106,15 +106,11 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     - parameter sender:	The save button
     */
     @IBAction func saveCatPic(sender: AnyObject){
+        
         UIImageWriteToSavedPhotosAlbum(pictureOfCat.image!, nil, nil, nil)
         
         /// Pop Up to say it's saved
-        let alertController = UIAlertController(title: "Saved", message:
-            "You pervert", preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
+        showMessageBox("Saved", internalString: "You pervert", buttonText: "Dismiss")
         
     }
     
@@ -170,12 +166,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
        
         if(error != nil){
-            let alertController = UIAlertController(title: "Error Downloading", message:
-                error?.description, preferredStyle: UIAlertControllerStyle.Alert)
-            
-            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-            
-            self.presentViewController(alertController, animated: true, completion: nil)
+            showMessageBox("Error", internalString: error!.localizedDescription, buttonText: "Ok")
         }
         else{
             /*!
@@ -202,6 +193,22 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
         
         //reset the buffer
         buffer.setData(NSData())
+    }
+    
+    /*!
+    Pops up an alter but with one button and no handler on acknowledgement
+    
+    - parameter titleString:		The main string of the box
+    - parameter internalString:	The little text inside it
+    - parameter buttonText:			The button text
+    */
+    internal func showMessageBox(titleString: String, internalString: String, buttonText: String){
+        let alertController = UIAlertController(title: titleString, message:
+            internalString, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: buttonText, style: UIAlertActionStyle.Default, handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
 }
