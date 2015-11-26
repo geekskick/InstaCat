@@ -158,7 +158,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     }
     
     /*!
-    When the download is finished
+    When the download is finished check that an image was recieved and display it, otherwise show an error pop up box detailing what was recieved or the error condition
     
     - parameter session:	The session
     - parameter task:		The task
@@ -166,25 +166,57 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     */
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
        
-        if(error != nil){
-            showMessageBox("Error", internalString: error!.localizedDescription, buttonText: "Ok")
-        }
-        else{
-            /*!
-            @brief  Cast the NSData recieved as an image and put it in the image view controller
-            
-            @param buffer	The NSData buffer
-            
-            @return The UIImage object
-            */
-            pictureOfCat.image = UIImage(data: buffer)
-            pictureOfCat.hidden = false
-            saveButton.enabled = true
-            
-            tView.text = task.response?.URL?.absoluteString
-            tView.hidden = false
+        var imageRcd = false    ///Will turn true if the content type of the packet is image/jpeg
+        var errMsg = ""         ///For storing the error string in
         
+        /*!
+        @brief  There was an error message
+        */
+        if(error != nil){
+            /*!
+            @brief  Display the error message
+            */
+            errMsg = error!.localizedDescription
+        }
+        /*!
+        @brief  No error message
+        */
+        else{
+            /// Cast the repsonse as NSNTTPURLRespnonse to acess it's members. I know that the reponse is there at this point as there is no error message
+            let nsResp = task.response as! NSHTTPURLResponse
             
+            /// If there is a 'content-type' field in the header
+            if let nsRespContentType = nsResp.allHeaderFields["Content-Type"] as? String{
+                /// The the content type is a jpeg
+                if(nsRespContentType == "image/jpeg"){
+                    
+                    imageRcd = true
+                    
+                    pictureOfCat.image = UIImage(data: buffer)
+                    pictureOfCat.hidden = false
+                    saveButton.enabled = true
+                    
+                    /// There is deffoes a response and a URL at this point so put the url in the textfield on screen
+                    tView.text = task.response!.URL!.absoluteString
+                    tView.hidden = false
+                    
+                }
+                /// The content type wasn't a jpeg
+                else{
+                    errMsg = "The content was of type \(nsRespContentType)"
+                }
+            }
+            /// There was no content-type field in the reply
+            else{
+                errMsg = "No content recieved"
+            }
+        }
+        
+        /*!
+        @brief  There was no jpeg image recieved at this point so show the erorr pop up box
+        */
+        if(!imageRcd){
+            showMessageBox("Error", internalString: errMsg, buttonText: "OK")
         }
         
         /*!
