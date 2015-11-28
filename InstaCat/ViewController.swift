@@ -15,7 +15,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     @IBOutlet var saveButton    : UIButton!
     @IBOutlet var progress      : UIProgressView!
     @IBOutlet var tView         : UITextView!
-
+    
     /// The original locartion of the cat picture, initialised in viewDidLoad()
     var originalPictureLocation = CGPoint(x: 0, y: 0)
     /// The last location of a touch on the screen
@@ -30,8 +30,26 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     var dataTask                :NSURLSessionDataTask?
     /// How much content is being sent by REST 'GET' request
     var expectedContentLength   = 0
-    
+    /// The swiping information
     var swipe                   = UISwipeAction()
+    
+    /*!
+    Change the colour of stuff before it's loaded for more efficient loading
+    
+    - parameter animated:	not used
+    */
+    override func viewWillAppear(animated: Bool) {
+        
+        /// Make the link font colour black in the label
+        tView.tintColor = UIColor.blackColor()
+        
+        let nBar = self.navigationController?.navigationBar
+        /*!
+        The navbar has three bits (back, title and forward), the titletext has it's information in a dictionary [ datatype : its value ]
+        */
+        nBar?.titleTextAttributes = [NSForegroundColorAttributeName: getButton.tintColor]
+        
+    }
     
     /*!
     Initialise the view with no picture and the save button disabled
@@ -44,14 +62,11 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
         progress.hidden = true
         pictureOfCat.hidden = true
         
-        /// Make the link font colour black
-        tView.tintColor = UIColor.blackColor()
-        
         /// Save the original location of the UIImageView for when it's reset
         originalPictureLocation = pictureOfCat.frame.origin
         
         /// Show instruction message
-        showMessageBox("Welcome to InstaCat", internalString: "Swipe Left to get a New Cat\rSwipe Right to Save the Cat", buttonText: "Go")
+        showMessageBox(title: "Welcome to InstaCat", internalString: "Swipe Left to get a New Cat\rSwipe Right to Save the Cat", buttonText: "Go")
         
     }
     
@@ -89,7 +104,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
         /// Create a reqest to the URL
         let req = NSMutableURLRequest(URL: NSURL(string: "http://thecatapi.com/api/images/get?type=jpg")!)
         
-        req.HTTPMethod = "GET";
+        req.HTTPMethod = "GET"
         
         session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: NSOperationQueue.mainQueue())
         
@@ -126,7 +141,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
         UIImageWriteToSavedPhotosAlbum(pictureOfCat.image!, nil, nil, nil)
         
         /// Pop Up to say it's saved
-        showMessageBox("Saved", internalString: "You pervert", buttonText: "Dismiss")
+        showMessageBox(title: "Saved", internalString: "You pervert", buttonText: "Dismiss")
         
     }
     
@@ -229,7 +244,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
         @brief  There was no jpeg image recieved at this point so show the erorr pop up box
         */
         if(!imageRcd){
-            showMessageBox("Error", internalString: errMsg, buttonText: "OK")
+            showMessageBox(title: "Error", internalString: errMsg, buttonText: "OK")
         }
         
         /*!
@@ -250,7 +265,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     - parameter internalString:	The little text inside it
     - parameter buttonText:			The button text
     */
-    internal func showMessageBox(titleString: String, internalString: String, buttonText: String){
+    internal func showMessageBox(title titleString: String, internalString: String,  buttonText: String){
         
         let alertController = UIAlertController(title: titleString, message:
             internalString, preferredStyle: UIAlertControllerStyle.Alert)
@@ -320,7 +335,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
             case .Stationary:
                 updatePictureLocation(originalPictureLocation)
             case .ERROR:
-                showMessageBox("direction", internalString: "error returned", buttonText: "ok")
+                showMessageBox(title: "direction", internalString: "error returned", buttonText: "ok")
                 
             }
         }
