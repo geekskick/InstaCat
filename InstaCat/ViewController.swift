@@ -308,15 +308,15 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
         if(!pictureOfCat.hidden){
             
             /*!
-            @brief  If the swipe was to the right the save the cat picture before loading a new one
+            @brief  If the swipe was to the right the save the cat picture before loading a new one, switch cases have no fallthrough
             */
             switch(swipe.direction){
-            case .Right:
-                saveCatPic(UIButton())
-                fallthrough
             case .Left:
                 newCatPressed(UIButton())
-                fallthrough
+                updatePictureLocation(originalPictureLocation)
+            case .Right:
+                saveCatPic(UIButton())
+                updatePictureLocation(originalPictureLocation)
             case .Stationary:
                 updatePictureLocation(originalPictureLocation)
             case .ERROR:
