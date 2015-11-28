@@ -11,6 +11,7 @@
 		D80A99861C06078D005FF6E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D80A99841C06078D005FF6E3 /* Main.storyboard */; };
 		D80A99881C06078D005FF6E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D80A99871C06078D005FF6E3 /* Assets.xcassets */; };
 		D80A998B1C06078D005FF6E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D80A99891C06078D005FF6E3 /* LaunchScreen.storyboard */; };
+		D86AD72D1C0923E20096192B /* UISwipeFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86AD72C1C0923E20096192B /* UISwipeFunctions.swift */; };
 		D8E39EDF1C061DCD004550C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E39EDE1C061DCD004550C8 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +22,7 @@
 		D80A99871C06078D005FF6E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D80A998A1C06078D005FF6E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D80A998C1C06078D005FF6E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D86AD72C1C0923E20096192B /* UISwipeFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISwipeFunctions.swift; sourceTree = "<group>"; };
 		D8E39EDE1C061DCD004550C8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -38,6 +40,7 @@
 		D80A99741C06078D005FF6E3 = {
 			isa = PBXGroup;
 			children = (
+				D86AD72C1C0923E20096192B /* UISwipeFunctions.swift */,
 				D80A997F1C06078D005FF6E3 /* InstaCat */,
 				D80A997E1C06078D005FF6E3 /* Products */,
 			);
@@ -138,6 +141,7 @@
 			files = (
 				D8E39EDF1C061DCD004550C8 /* ViewController.swift in Sources */,
 				D80A99811C06078D005FF6E3 /* AppDelegate.swift in Sources */,
+				D86AD72D1C0923E20096192B /* UISwipeFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
