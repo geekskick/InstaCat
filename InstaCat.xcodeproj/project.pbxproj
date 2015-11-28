@@ -22,7 +22,7 @@
 		D80A99871C06078D005FF6E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D80A998A1C06078D005FF6E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D80A998C1C06078D005FF6E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D86AD72C1C0923E20096192B /* UISwipeFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISwipeFunctions.swift; sourceTree = "<group>"; };
+		D86AD72C1C0923E20096192B /* UISwipeFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UISwipeFunctions.swift; path = ../UISwipeFunctions.swift; sourceTree = "<group>"; };
 		D8E39EDE1C061DCD004550C8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -40,7 +40,6 @@
 		D80A99741C06078D005FF6E3 = {
 			isa = PBXGroup;
 			children = (
-				D86AD72C1C0923E20096192B /* UISwipeFunctions.swift */,
 				D80A997F1C06078D005FF6E3 /* InstaCat */,
 				D80A997E1C06078D005FF6E3 /* Products */,
 			);
@@ -57,6 +56,7 @@
 		D80A997F1C06078D005FF6E3 /* InstaCat */ = {
 			isa = PBXGroup;
 			children = (
+				D86AD72C1C0923E20096192B /* UISwipeFunctions.swift */,
 				D80A99801C06078D005FF6E3 /* AppDelegate.swift */,
 				D80A99841C06078D005FF6E3 /* Main.storyboard */,
 				D8E39EDE1C061DCD004550C8 /* ViewController.swift */,
