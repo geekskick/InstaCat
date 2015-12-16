@@ -33,6 +33,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     /// The swiping information
     var swipe                   = UISwipeAction()
     
+    
     /*!
     Change the colour of stuff before it's loaded for more efficient loading
     
@@ -48,7 +49,6 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
         The navbar has three bits (back, title and forward), the titletext has it's information in a dictionary [ datatype : its value ]
         */
         nBar?.titleTextAttributes = [NSForegroundColorAttributeName: getButton.tintColor]
-        
     }
     
     /*!
@@ -314,7 +314,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     }
     
     /*!
-    When the touches on the screen end update the cat pic, and save it if needed. If no difference in the 'x' co-ordinate then don't get a new pic but put it back in the original place
+    When the touches on the screen end update the cat pic, and save it if needed. 
     
     - parameter touches:	a bunch of touched, only 1 when there's one finger on the screen
     - parameter event:		the event type, not used
@@ -322,22 +322,18 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if(!pictureOfCat.hidden){
             
-            /*!
-            @brief  If the swipe was to the right the save the cat picture before loading a new one, switch cases have no fallthrough
-            */
-            switch(swipe.direction){
-            case .Left:
-                newCatPressed(UIButton())
-                updatePictureLocation(originalPictureLocation)
-            case .Right:
+            ///If the picture is to the left of the centre
+            if pictureOfCat.center.x > self.view.center.x{
                 saveCatPic(UIButton())
-                updatePictureLocation(originalPictureLocation)
-            case .Stationary:
-                updatePictureLocation(originalPictureLocation)
-            case .ERROR:
-                showMessageBox(title: "direction", internalString: "error returned", buttonText: "ok")
-                
             }
+            
+            ///If the picture is to the right of the centre
+            else if pictureOfCat.center.x < self.view.center.x{
+                newCatPressed(UIButton())
+            }
+            
+            updatePictureLocation(originalPictureLocation)
+            
         }
     }
     
