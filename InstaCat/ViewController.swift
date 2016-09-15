@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDelegate, UITextViewDelegate {
+class ViewController: UIViewController, URLSessionDelegate, URLSessionDataDelegate, UITextViewDelegate {
 
     @IBOutlet var pictureOfCat  : UIImageView!
     @IBOutlet var getButton     : UIButton!
@@ -25,9 +25,9 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     /// The download data buffer
     var buffer                  :NSMutableData = NSMutableData()
     /// The download session might not happen so its optional
-    var session                 :NSURLSession?
+    var session                 :Foundation.URLSession?
     /// The task in the session might not happen so its optional
-    var dataTask                :NSURLSessionDataTask?
+    var dataTask                :URLSessionDataTask?
     /// How much content is being sent by REST 'GET' request
     var expectedContentLength   = 0
     /// The swiping information
@@ -39,15 +39,14 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     
     - parameter animated:	not used
     */
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
-        /// Make the link font colour black in the label
-        tView.tintColor = UIColor.blackColor()
+        // Make the link font colour black in the label
+        tView.tintColor = UIColor.black
         
         let nBar = self.navigationController?.navigationBar
-        /*!
-        The navbar has three bits (back, title and forward), the titletext has it's information in a dictionary [ datatype : its value ]
-        */
+		
+		// The navbar has three bits (back, title and forward), the titletext has it's information in a dictionary [ datatype : its value ]
         nBar?.titleTextAttributes = [NSForegroundColorAttributeName: getButton.tintColor]
     }
     
@@ -57,15 +56,15 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        saveButton.enabled = false
+        saveButton.isEnabled = false
         progress.progress = 0
-        progress.hidden = true
-        pictureOfCat.hidden = true
+        progress.isHidden = true
+        pictureOfCat.isHidden = true
         
-        /// Save the original location of the UIImageView for when it's reset
+        // Save the original location of the UIImageView for when it's reset
         originalPictureLocation = pictureOfCat.frame.origin
         
-        /// Show instruction message
+        // Show instruction message
         showMessageBox(title: "Welcome to InstaCat", internalString: "Swipe Left to get a New Cat\rSwipe Right to Save the Cat", buttonText: "Go")
         
     }
@@ -80,7 +79,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     
     - returns: true if it's allowed to open safari
     */
-    internal func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool{
+    internal func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool{
         return true
     }
     
@@ -98,35 +97,29 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     
     - parameter sender:	The new Cat button
     */
-    @IBAction func newCatPressed(sender: UIButton){
+    @IBAction func newCatPressed(_ sender: UIButton){
         
         
         /// Create a reqest to the URL
-        let req = NSMutableURLRequest(URL: NSURL(string: "http://thecatapi.com/api/images/get?type=jpg")!)
+        var req = URLRequest(url: URL(string: "http://thecatapi.com/api/images/get?type=jpg")!)
         
-        req.HTTPMethod = "GET"
+        req.httpMethod = "GET"
         
-        session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: NSOperationQueue.mainQueue())
+        session = Foundation.URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: OperationQueue.main)
         
-        dataTask = session?.dataTaskWithRequest(req)
-        
-        /*!
-        @brief  Hide the objects not needed or relevant
-        */
-        pictureOfCat.hidden = true
-        progress.hidden = false
-        getButton.enabled = false
-        saveButton.enabled = false
-        tView.hidden = true
-        
-        /*!
-        Reset progress bar
-        */
+        dataTask = session?.dataTask(with: req)
+		
+		// Hide the objects not needed or relevant
+        pictureOfCat.isHidden = true
+        progress.isHidden = false
+        getButton.isEnabled = false
+        saveButton.isEnabled = false
+        tView.isHidden = true
+		
+		// Reset progress bar
         progress.progress = 0
-        
-        /*!
-        Unpause the thread
-        */
+		
+		// Unpause the thread
         dataTask?.resume()
     
     }
@@ -136,7 +129,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     
     - parameter sender:	The save button
     */
-    @IBAction func saveCatPic(sender: UIButton){
+    @IBAction func saveCatPic(_ sender: UIButton){
         
         UIImageWriteToSavedPhotosAlbum(pictureOfCat.image!, nil, nil, nil)
         
@@ -159,7 +152,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     - parameter response:					The header from the GET request
     - parameter completionHandler:	what to do if the download is complete
     */
-    func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         
         //here you can get full lenth of your content
         expectedContentLength = Int(response.expectedContentLength)
@@ -167,7 +160,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
         /*!
         Allow the session to call the completetion listener (the one at the bottom of these three)
         */
-        completionHandler(NSURLSessionResponseDisposition.Allow)
+        completionHandler(Foundation.URLSession.ResponseDisposition.allow)
         
     }
     
@@ -178,9 +171,9 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     - parameter dataTask:	The task involved
     - parameter data:			the data recieved
     */
-    func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         
-        buffer.appendData(data)
+        buffer.append(data)
         let percentageDownloaded = Float(buffer.length) / Float(expectedContentLength)
         progress.progress =  percentageDownloaded
     }
@@ -192,44 +185,40 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     - parameter task:		The task
     - parameter error:		The error message
     */
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
        
         var imageRcd = false    ///Will turn true if the content type of the packet is image/jpeg
         var errMsg = ""         ///For storing the error string in
-        
-        /*!
-        @brief  There was an error message
-        */
+	
+		//  There was an error message
         if(error != nil){
-            /*!
-            @brief  Display the error message
-            */
+  
+			// Display the error message
             errMsg = error!.localizedDescription
         }
-        /*!
-        @brief  No error message
-        */
+		
+			// No error message
         else{
-            /// Cast the repsonse as NSNTTPURLRespnonse to acess it's members. I know that the reponse is there at this point as there is no error message
-            let nsResp = task.response as! NSHTTPURLResponse
+            // Cast the repsonse as NSNTTPURLRespnonse to acess it's members. I know that the reponse is there at this point as there is no error message
+            let nsResp = task.response as! HTTPURLResponse
             
-            /// If there is a 'content-type' field in the header
+            // If there is a 'content-type' field in the header
             if let nsRespContentType = nsResp.allHeaderFields["Content-Type"] as? String{
-                /// The the content type is a jpeg
+                // The the content type is a jpeg
                 if(nsRespContentType == "image/jpeg"){
                     
                     imageRcd = true
                     
-                    pictureOfCat.image = UIImage(data: buffer)
-                    pictureOfCat.hidden = false
-                    saveButton.enabled = true
+                    pictureOfCat.image = UIImage(data: buffer as Data)
+                    pictureOfCat.isHidden = false
+                    saveButton.isEnabled = true
                     
-                    /// There is deffoes a response and a URL at this point so put the url in the textfield on screen
-                    tView.text = task.response!.URL!.absoluteString
-                    tView.hidden = false
+                    // There is deffoes a response and a URL at this point so put the url in the textfield on screen
+                    tView.text = task.response!.url!.absoluteString
+                    tView.isHidden = false
                     
                 }
-                /// The content type wasn't a jpeg
+                // The content type wasn't a jpeg
                 else{
                     errMsg = "The content was of type \(nsRespContentType)"
                 }
@@ -250,11 +239,11 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
         /*!
         @brief  Reanable the button common to both error and non error situation and hide the progress bar
         */
-        getButton.enabled = true
-        progress.hidden = true
+        getButton.isEnabled = true
+        progress.isHidden = true
         
         //reset the buffer
-        buffer.setData(NSData())
+        buffer.setData(Data())
         
     }
     
@@ -268,11 +257,11 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     internal func showMessageBox(title titleString: String, internalString: String,  buttonText: String){
         
         let alertController = UIAlertController(title: titleString, message:
-            internalString, preferredStyle: UIAlertControllerStyle.Alert)
+            internalString, preferredStyle: UIAlertControllerStyle.alert)
         
-        alertController.addAction(UIAlertAction(title: buttonText, style: UIAlertActionStyle.Default, handler: nil))
+        alertController.addAction(UIAlertAction(title: buttonText, style: UIAlertActionStyle.default, handler: nil))
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     
     }
     
@@ -286,9 +275,9 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     - parameter touches:	The touches on the screen, only the first is used
     - parameter event:		NOt used
     */
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if(!pictureOfCat.hidden){
-            swipe.previousTouchCoOrds = touches.first!.locationInView(self.view)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(!pictureOfCat.isHidden){
+            swipe.previousTouchCoOrds = touches.first!.location(in: self.view)
             swipe.latestTouchCoOrds = swipe.previousTouchCoOrds
         }
     }
@@ -299,14 +288,14 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     - parameter touches:	The touches on the screen, only the first is used
     - parameter event:		No used
     */
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if(!pictureOfCat.hidden){
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(!pictureOfCat.isHidden){
             
             /*!
             The one which was the latests touch is now old news, so put it into the previous touch location and make the latest the one passed into this function
             */
             swipe.previousTouchCoOrds = swipe.latestTouchCoOrds
-            swipe.latestTouchCoOrds = touches.first!.locationInView(self.view)
+            swipe.latestTouchCoOrds = touches.first!.location(in: self.view)
         
             
             updatePictureLocation(CGPoint(x: pictureOfCat.frame.origin.x + swipe.differenceInCoOrds().x, y: pictureOfCat.frame.origin.y))
@@ -319,8 +308,8 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     - parameter touches:	a bunch of touched, only 1 when there's one finger on the screen
     - parameter event:		the event type, not used
     */
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if(!pictureOfCat.hidden){
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(!pictureOfCat.isHidden){
             
             ///If the picture is to the left of the centre
             if pictureOfCat.center.x > self.view.center.x{
@@ -342,7 +331,7 @@ class ViewController: UIViewController, NSURLSessionDelegate, NSURLSessionDataDe
     
     - parameter newLoc:	A CGPoint of it's new location
     */
-    func updatePictureLocation(newLoc: CGPoint){
+    func updatePictureLocation(_ newLoc: CGPoint){
         pictureOfCat.frame.origin = newLoc
     }
 

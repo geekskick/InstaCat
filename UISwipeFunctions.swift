@@ -2,9 +2,7 @@
 //  UISwipeFunctions.swift
 //  InstaCat
 //
-//  Created by Patrick Mintram on 27/11/2015.
-//  Copyright © 2015 Patrick Mintram. All rights reserved.
-//
+
 
 import UIKit
 
@@ -14,7 +12,7 @@ class UISwipeAction{
     /*!
     The different direction options
     */
-    enum Direction { case Left, Right, Stationary, ERROR}
+    enum Direction { case left, right, stationary, error}
     
     /// The previous and latest touch co-ords in order to work out the differentce between them, and therefore the direction
     var previousTouchCoOrds : CGPoint
@@ -24,16 +22,16 @@ class UISwipeAction{
     var direction           : Direction{
         get{
             if(latestTouchCoOrds.x > previousTouchCoOrds.x){
-                return .Right
+                return .right
             }
             else if(latestTouchCoOrds.x < previousTouchCoOrds.x){
-                return .Left
+                return .left
             }
             else if(latestTouchCoOrds.x == previousTouchCoOrds.x){
-                return .Stationary
+                return .stationary
             }
             else{
-                return .ERROR
+                return .error
             }
         }
     }
